@@ -191,7 +191,12 @@ const ClassDetails = () => {
                     </>
                 ) : (
                     <>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h5" 
+                       style={{
+                             fontFamily: "'Cinzel Decorative', cursive", 
+                            fontWeight: 900,
+                            color: "#d4af37"}} 
+                            gutterBottom>
                             Students List:
                         </Typography>
 
@@ -203,13 +208,32 @@ const ClassDetails = () => {
         )
     }
 
-    const ClassTeachersSection = () => {
-        return (
-            <>
+    // const ClassTeachersSection = () => {
+    //     return (
+    //         <>
+    //             Teachers
+    //         </>
+    //     )
+    // }
+
+const ClassTeachersSection = () => {
+    return (
+        <>
+            <Typography
+                variant="h4"
+                align="center"
+                color="#d4af37"
+                gutterBottom
+                sx={{
+                    fontFamily: "'Cinzel Decorative', cursive",
+                    fontWeight: 900
+                }}
+            >
                 Teachers
-            </>
-        )
-    }
+            </Typography>
+        </>
+    )
+}
 
     const ClassDetailsSection = () => {
         const numberOfSubjects = subjectsList.length;
@@ -217,16 +241,22 @@ const ClassDetails = () => {
 
         return (
             <>
-                <Typography variant="h4" align="center" gutterBottom>
+                <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
                     Class Details
                 </Typography>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h4" color= "#d4af37" 
+                  style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 800  // or 700 if 900 feels too bold
+                 }} gutterBottom>
                     This is Class {sclassDetails && sclassDetails.sclassName}
                 </Typography>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" color= "#fff" gutterBottom>
                     Number of Subjects: {numberOfSubjects}
                 </Typography>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" color= "#fff" gutterBottom>
                     Number of Students: {numberOfStudents}
                 </Typography>
                 {getresponse &&
