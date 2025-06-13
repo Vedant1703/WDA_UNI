@@ -45,26 +45,31 @@ const AddNotice = () => {
     <>
       <div className="register">
         <form className="registerForm" onSubmit={submitHandler}>
-          <span className="registerTitle">Add Notice</span>
-          <label>Title</label>
+          <span className="registerTitle"
+           style={{ fontFamily:'Cinzel Decorative' /* Hogwarts style */, fontSize: '5rem', color: '#ffb300' }}>Add Notice</span>
+          <label
+           style={{ fontFamily:'Cinzel Decorative' /* Hogwarts style */, fontSize: '2rem', color: '#ffb300' }}>Title</label>
           <input className="registerInput" type="text" placeholder="Enter notice title..."
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required />
 
-          <label>Details</label>
+          <label
+           style={{ fontFamily:'Cinzel Decorative' /* Hogwarts style */, fontSize: '2rem', color: '#ffb300' }}>Details</label>
           <input className="registerInput" type="text" placeholder="Enter notice details..."
             value={details}
             onChange={(event) => setDetails(event.target.value)}
             required />
 
-          <label>Date</label>
+          <label
+           style={{ fontFamily:'Cinzel Decorative' /* Hogwarts style */, fontSize: '2rem', color: '#ffb300' }}>Date</label>
           <input className="registerInput" type="date" placeholder="Enter notice date..."
             value={date}
             onChange={(event) => setDate(event.target.value)}
             required />
 
-          <button className="registerButton" type="submit" disabled={loader}>
+          <button className="registerButton" type="submit" disabled={loader}
+            style={{ fontFamily:'Cinzel Decorative' /* Hogwarts style */, fontSize: '1.5rem', color: '#ffb300' }}>
             {loader ? (
               <CircularProgress size={24} color="inherit" />
             ) : (

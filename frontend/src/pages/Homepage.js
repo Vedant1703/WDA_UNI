@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
-import Students from "../assets/students.svg";
+import Students from "../assets/students.jpg";
 import { LightPurpleButton } from '../components/buttonStyles';
 
 const Homepage = () => {
@@ -17,31 +17,29 @@ const Homepage = () => {
                         <StyledTitle>
                             Welcome to
                             <br />
-                            School Management
+                            University Management
                             <br />
                             System
                         </StyledTitle>
                         <StyledText>
-                            Streamline school management, class organization, and add students and faculty.
-                            Seamlessly track attendance, assess performance, and provide feedback.
-                            Access records, view marks, and communicate effortlessly.
+                          🎓 Simplify university management with smart class organization, effortless student and faculty onboarding, attendance tracking, performance analytics, and instant feedback — all in one place. Stay connected, track progress, and manage records with ease.
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
-                                <LightPurpleButton variant="contained" fullWidth>
+                                <LightPurpleButton variant="contained"   fullWidth>
                                     Login
                                 </LightPurpleButton>
                             </StyledLink>
                             <StyledLink to="/chooseasguest">
                                 <Button variant="outlined" fullWidth
-                                    sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
+                                    sx={{ mt: 2, mb: 3, color: "#d4af37", borderColor: "#d4af37" }}
                                 >
                                     Login as Guest
                                 </Button>
                             </StyledLink>
                             <StyledText>
                                 Don't have an account?{' '}
-                                <Link to="/Adminregister" style={{color:"#550080"}}>
+                                <Link to="/Adminregister" style={{color:"white"}}>
                                     Sign up
                                 </Link>
                             </StyledText>
@@ -60,6 +58,8 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color:#1a2b55
+;
 `;
 
 const StyledPaper = styled.div`
@@ -78,8 +78,9 @@ const StyledBox = styled(Box)`
 
 const StyledTitle = styled.h1`
   font-size: 3rem;
-  color: #252525;
+  color:#d4af37;
   /* font-family: "Manrope"; */
+  font-family: 'Cinzel Decorative', cursive; /* Hogwarts style */
   font-weight: bold;
   padding-top: 0;
   letter-spacing: normal;
@@ -88,6 +89,10 @@ const StyledTitle = styled.h1`
 
 const StyledText = styled.p`
   /* color: #550080; */
+   color:#d4af37;
+  /* font-family: "Manrope"; */
+  /*font-family: 'Cinzel Decorative', cursive /* Hogwarts style */*/
+    font-family: 'Cinzel', serif; /* Hogwarts style */
   margin-top: 30px;
   margin-bottom: 30px; 
   letter-spacing: normal;

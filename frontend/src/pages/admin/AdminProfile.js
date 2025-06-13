@@ -5,7 +5,7 @@
 // import { useNavigate } from 'react-router-dom'
 // import { authLogout } from '../../redux/userRelated/userSlice';
 // import { Button, Collapse } from '@mui/material';
-
+import { Paper, Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 const AdminProfile = () => {
@@ -45,51 +45,65 @@ const AdminProfile = () => {
     // }
 
     return (
-        <div>
-            Name: {currentUser.name}
-            <br />
-            Email: {currentUser.email}
-            <br />
-            School: {currentUser.schoolName}
-            <br />
-            {/* <Button variant="contained" color="error" onClick={deleteHandler}>Delete</Button> */}
-            {/* <Button variant="contained" sx={styles.showButton}
-                onClick={() => setShowTab(!showTab)}>
-                {showTab ? <KeyboardArrowUp /> : <KeyboardArrowDown />}{buttonText}
-            </Button>
-            <Collapse in={showTab} timeout="auto" unmountOnExit>
-                <div className="register">
-                    <form className="registerForm" onSubmit={submitHandler}>
-                        <span className="registerTitle">Edit Details</span>
-                        <label>Name</label>
-                        <input className="registerInput" type="text" placeholder="Enter your name..."
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                            autoComplete="name" required />
+        // <div>
+        //     Name: {currentUser.name}
+        //     <br />
+        //     Email: {currentUser.email}
+        //     <br />
+        //     School: {currentUser.schoolName}
+        //     <br />
 
-                        <label>School</label>
-                        <input className="registerInput" type="text" placeholder="Enter your school name..."
-                            value={schoolName}
-                            onChange={(event) => setSchoolName(event.target.value)}
-                            autoComplete="name" required />
+ <Paper
+            elevation={4}
+            sx={{
+                padding: 3,
+                maxWidth: 400,
+                margin: '20px auto',
+                backgroundColor: '#f5f5f5',
+                borderRadius: 2
+            }}
+        >
+            <Typography
+                variant="h4"
+                align="center"
+                color="#d4af37"
+                gutterBottom
+                sx={{ fontFamily: "'Cinzel Decorative', cursive", fontWeight: 900 }}
+            >
+                Admin Profile
+            </Typography>
 
-                        <label>Email</label>
-                        <input className="registerInput" type="email" placeholder="Enter your email..."
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            autoComplete="email" required />
+            <Box sx={{ mt: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Name:
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {currentUser.name}
+                </Typography>
 
-                        <label>Password</label>
-                        <input className="registerInput" type="password" placeholder="Enter your password..."
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            autoComplete="new-password" />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Email:
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {currentUser.email}
+                </Typography>
 
-                        <button className="registerButton" type="submit" >Update</button>
-                    </form>
-                </div>
-            </Collapse> */}
-        </div>
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    School:
+                </Typography>
+                <Typography variant="body1">
+                    {currentUser.schoolName}
+                </Typography>
+            </Box>
+        </Paper>
+    
+
+
+
+
+
+
+
     )
 }
 
