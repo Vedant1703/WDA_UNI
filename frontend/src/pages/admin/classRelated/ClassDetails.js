@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getClassDetails, getClassStudents, getSubjectList } from "../../../redux/sclassRelated/sclassHandle";
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
-    Box, Container, Typography, Tab, IconButton
+    Paper, Box, Container, Typography, Tab, IconButton
 } from '@mui/material';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -115,13 +115,17 @@ const ClassDetails = () => {
                     </Box>
                     :
                     <>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
                             Subjects List:
                         </Typography>
-
+                       < Paper sx={{ width: '100%', overflow: 'hidden' }}>
                         <TableTemplate buttonHaver={SubjectsButtonHaver} columns={subjectColumns} rows={subjectRows} />
+                   </Paper>
                         <SpeedDialTemplate actions={subjectActions} />
-                    </>
+                   </>
                 }
             </>
         )
@@ -191,16 +195,15 @@ const ClassDetails = () => {
                     </>
                 ) : (
                     <>
-                        <Typography variant="h5" 
-                       style={{
-                             fontFamily: "'Cinzel Decorative', cursive", 
-                            fontWeight: 900,
-                            color: "#d4af37"}} 
-                            gutterBottom>
+                      <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
                             Students List:
                         </Typography>
-
+                        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                         <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
+                        </Paper>
                         <SpeedDialTemplate actions={studentActions} />
                     </>
                 )}
@@ -219,21 +222,80 @@ const ClassDetails = () => {
 const ClassTeachersSection = () => {
     return (
         <>
-            <Typography
-                variant="h4"
-                align="center"
-                color="#d4af37"
-                gutterBottom
-                sx={{
-                    fontFamily: "'Cinzel Decorative', cursive",
-                    fontWeight: 900
-                }}
-            >
+            <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
                 Teachers
             </Typography>
         </>
     )
 }
+
+//   const teacherColumns = [
+//         { id: 'name', label: 'Name', minWidth: 170 },
+//         { id: 'email', label: 'Email', minWidth: 100 },
+//     ]
+
+//     const teacherRows = teacherDetails.map((student) => {
+//         return {
+//             name: teacher.name,
+//             rollNum: student.rollNum,
+//             id: student._id,
+//         };
+//     })
+
+
+// const TeachersButtonHaver = ({ row }) => {
+//         return (
+//             <>
+//                 <IconButton onClick={() => deleteHandler(row.id, "Teacher")}>
+//                     <PersonRemoveIcon color="error" />
+//                 </IconButton>
+//                 <BlueButton
+//                     variant="contained"
+//                     onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}
+//                 >
+//                     Teacher Details
+//                 </BlueButton>
+             
+//             </>
+//         );
+//     };
+
+// const ClassTeachersSection = () => {
+//      return (
+//             <>
+//                 {getresponse ? (
+//                     <>
+//                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+//                             <GreenButton
+//                                 variant="contained"
+//                                 onClick={() => navigate("/Admin/class/addstudents/" + classID)}
+//                             >
+//                                 Add Students
+//                             </GreenButton>
+//                         </Box>
+//                     </>
+//                 ) : (
+//                     <>
+//                         <Typography variant="h5" 
+//                        style={{
+//                              fontFamily: "'Cinzel Decorative', cursive", 
+//                             fontWeight: 900,
+//                             color: "#d4af37"}} 
+//                             gutterBottom>
+//                             Teacher
+//                         </Typography>
+//                         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+//                         <TableTemplate buttonHaver={TeachersButtonHaver} columns={studentColumns} rows={studentRows} />
+//                         </Paper>
+//                         <SpeedDialTemplate actions={studentActions} />
+//                     </>
+//                 )}
+//             </>
+//         )
+// }
 
     const ClassDetailsSection = () => {
         const numberOfSubjects = subjectsList.length;
@@ -241,7 +303,7 @@ const ClassTeachersSection = () => {
 
         return (
             <>
-                <Typography variant="h3" align="center" color= "#d4af37"   
+                {/* <Typography variant="h3" align="center" color= "#d4af37"   
                 style={{ fontFamily: "'Cinzel Decorative', cursive",
                         fontWeight: 900  // or 700 if 900 feels too bold
                  }}  gutterBottom>
@@ -258,7 +320,55 @@ const ClassTeachersSection = () => {
                 </Typography>
                 <Typography variant="h6" color= "#fff" gutterBottom>
                     Number of Students: {numberOfStudents}
-                </Typography>
+                </Typography> */}
+              <Paper
+  elevation={4}
+  sx={{
+    padding: 3,
+    maxWidth: 500,
+    margin: '20px auto',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 2
+  }}
+>
+  <Typography
+    variant="h3"
+    align="center"
+    color="#d4af37"
+    gutterBottom
+    sx={{
+      fontFamily: "'Cinzel Decorative', cursive",
+      fontWeight: 900
+    }}
+  >
+    Class Details
+  </Typography>
+
+  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+    This is Class 
+  </Typography>
+ <Typography variant="body1" gutterBottom>
+      {sclassDetails && sclassDetails.sclassName}
+    </Typography>
+  <Box sx={{ mt: 2 }}>
+    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      Number of Subjects:
+    </Typography>
+    <Typography variant="body1" gutterBottom>
+      {numberOfSubjects}
+    </Typography>
+
+    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      Number of Students:
+    </Typography>
+    <Typography variant="body1">
+      {numberOfStudents}
+    </Typography>
+  </Box>
+</Paper>
+
+                
+                
                 {getresponse &&
                     <GreenButton
                         variant="contained"

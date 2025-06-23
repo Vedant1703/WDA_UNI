@@ -15,6 +15,8 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
+import Paper from '@mui/material/Paper';
+
 
 const ShowClasses = () => {
   const navigate = useNavigate()
@@ -119,7 +121,7 @@ const ShowClasses = () => {
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
           {actions.map((action) => (
-            <MenuItem onClick={action.action}>
+            <MenuItem key={action.name}  onClick={action.action}>
               <ListItemIcon fontSize="small">
                 {action.icon}
               </ListItemIcon>
@@ -156,12 +158,17 @@ const ShowClasses = () => {
             </Box>
             :
             <>
+              <Paper sx={{ width: '100%', overflow: 'hidden' }}>
               {Array.isArray(sclassesList) && sclassesList.length > 0 &&
                 <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
               }
               <SpeedDialTemplate actions={actions} />
-            </>}
+               </Paper>
+            </>
+            }
+              
         </>
+        
       }
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
 

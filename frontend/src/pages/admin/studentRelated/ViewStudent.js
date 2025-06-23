@@ -20,7 +20,8 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import Popup from '../../../components/Popup';
 
-const ViewStudent = () => {
+const ViewStudent = ({ sidebarOpen }) => {
+
     const [showTab, setShowTab] = useState(false);
 
     const navigate = useNavigate()
@@ -147,7 +148,17 @@ const ViewStudent = () => {
         const renderTableSection = () => {
             return (
                 <>
-                    <h3>Attendance:</h3>
+                    {/* <h3>Attendance:</h3> */}
+
+                       <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
+               Attendance:
+            </Typography>
+
+
+                      {/* < Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <Table>
                         <TableHead>
                             <StyledTableRow>
@@ -219,9 +230,109 @@ const ViewStudent = () => {
                         }
                         )}
                     </Table>
+                    
                     <div>
                         Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
                     </div>
+                    
+                    </Paper> */}
+
+                    <Paper sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+  <Table>
+    <TableHead>
+      <StyledTableRow>
+        <StyledTableCell>Subject</StyledTableCell>
+        <StyledTableCell>Present</StyledTableCell>
+        <StyledTableCell>Total Sessions</StyledTableCell>
+        <StyledTableCell>Attendance Percentage</StyledTableCell>
+        <StyledTableCell align="center">Actions</StyledTableCell>
+      </StyledTableRow>
+    </TableHead>
+    {Object.entries(groupAttendanceBySubject(subjectAttendance)).map(([subName, { present, allData, subId, sessions }], index) => {
+      const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
+      return (
+        <TableBody key={index}>
+          <StyledTableRow>
+            <StyledTableCell>{subName}</StyledTableCell>
+            <StyledTableCell>{present}</StyledTableCell>
+            <StyledTableCell>{sessions}</StyledTableCell>
+            <StyledTableCell>{subjectAttendancePercentage}%</StyledTableCell>
+            <StyledTableCell align="center">
+              <Button variant="contained" onClick={() => handleOpen(subId)}>
+                {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}Details
+              </Button>
+              <IconButton onClick={() => removeSubAttendance(subId)}>
+                <DeleteIcon color="error" />
+              </IconButton>
+              <Button
+                variant="contained"
+                sx={styles.attendanceButton}
+                onClick={() => navigate(`/Admin/subject/student/attendance/${studentID}/${subId}`)}
+              >
+                Change
+              </Button>
+            </StyledTableCell>
+          </StyledTableRow>
+          <StyledTableRow>
+            <StyledTableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+              <Collapse in={openStates[subId]} timeout="auto" unmountOnExit>
+                <Box sx={{ margin: 1 }}>
+                  <Typography variant="h6" gutterBottom component="div">
+                    Attendance Details
+                  </Typography>
+                  <Table size="small" aria-label="purchases">
+                    <TableHead>
+                      <StyledTableRow>
+                        <StyledTableCell>Date</StyledTableCell>
+                        <StyledTableCell align="right">Status</StyledTableCell>
+                      </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                      {allData.map((data, index) => {
+                        const date = new Date(data.date);
+                        const dateString = date.toString() !== 'Invalid Date' ? date.toISOString().substring(0, 10) : 'Invalid Date';
+                        return (
+                          <StyledTableRow key={index}>
+                            <StyledTableCell component="th" scope="row">
+                              {dateString}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{data.status}</StyledTableCell>
+                          </StyledTableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </Box>
+              </Collapse>
+            </StyledTableCell>
+          </StyledTableRow>
+        </TableBody>
+      );
+    })}
+  </Table>
+
+  <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'flex-end',
+      mt: 2,
+      pr: 2
+    }}
+  >
+    <Typography
+      variant="h6"
+      sx={{
+        fontWeight: 700,
+        color: '#d4af37', // gold accent like theme
+        fontFamily: "'Cinzel Decorative', cursive"
+      }}
+    >
+      Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
+    </Typography>
+  </Box>
+</Paper>
+
+
                     <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => removeHandler(studentID, "RemoveStudentAtten")}>Delete All</Button>
                     <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
                         Add Attendance
@@ -232,7 +343,7 @@ const ViewStudent = () => {
         const renderChartSection = () => {
             return (
                 <>
-                    <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" />
+                   <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" sidebarOpen={sidebarOpen} />
                 </>
             )
         }
@@ -260,9 +371,30 @@ const ViewStudent = () => {
                         </Paper>
                     </>
                     :
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
-                        Add Attendance
-                    </Button>
+                    // <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
+                    //     Add Attendance
+                    // </Button>
+                    <Button
+  variant="contained"
+  sx={
+    // backgroundColor: '#4caf50',
+    // '&:hover': {
+    //   backgroundColor: '#43a047', // slightly darker on hover
+    // },
+    // color: '#fff',
+    // paddingX: 4,
+    // paddingY: 1,
+    // fontSize: '1rem',
+    // borderRadius: 2,
+    // display: 'block',
+    // margin: '20px auto',
+    // // center horizontally
+    styles.styledButton
+}
+  onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}
+>
+  Add Attendance
+</Button>
                 }
             </>
         )
@@ -272,7 +404,14 @@ const ViewStudent = () => {
         const renderTableSection = () => {
             return (
                 <>
-                    <h3>Subject Marks:</h3>
+                    {/* <h3>Subject Marks:</h3> */}
+                       <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
+                Subject Marks
+            </Typography>
+              < Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <Table>
                         <TableHead>
                             <StyledTableRow>
@@ -294,16 +433,62 @@ const ViewStudent = () => {
                             })}
                         </TableBody>
                     </Table>
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
-                        Add Marks
-                    </Button>
+                            </Paper>
+                  {/* <Button
+  variant="contained"
+  sx={{
+    backgroundColor: '#4caf50',
+    color: '#fff',
+    fontWeight: 600,
+    textTransform: 'none',
+    paddingX: 2.5,
+    paddingY: 1,
+    borderRadius: 2,
+    '&:hover': {
+      backgroundColor: '#43a047',
+    }
+  }}
+  onClick={() => navigate("/Admin/students/student/marks/" + studentID)}
+>
+  Add Marks
+</Button> */}
+<Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    width: '100%',
+    mt: 2
+  }}
+>
+  <Button
+    variant="contained"
+    // sx={{
+    //   backgroundColor: '#4caf50',
+    //   color: '#fff',
+    //   fontWeight: 600,
+    //   textTransform: 'none',
+    //   paddingX: 2.5,
+    //   paddingY: 1,
+    //   borderRadius: 2,
+    //   '&:hover': {
+    //     backgroundColor: '#43a047',
+    //   }
+    // }}
+    sx={styles.styledButton}
+    onClick={() => navigate("/Admin/students/student/marks/" + studentID)}
+  >
+    Add Marks
+  </Button>
+</Box>
+
                 </>
             )
         }
         const renderChartSection = () => {
             return (
                 <>
-                    <CustomBarChart chartData={subjectMarks} dataKey="marksObtained" />
+                    <CustomBarChart chartData={subjectMarks} dataKey="marksObtained" sidebarOpen={sidebarOpen} />
                 </>
             )
         }
@@ -340,24 +525,102 @@ const ViewStudent = () => {
     }
 
     const StudentDetailsSection = () => {
-        return (
-            <div>
-                Name: {userDetails.name}
-                <br />
-                Roll Number: {userDetails.rollNum}
-                <br />
-                Class: {sclassName.sclassName}
-                <br />
-                School: {studentSchool.schoolName}
-                {
-                    subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
-                        <CustomPieChart data={chartData} />
-                    )
-                }
-                <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
-                    Delete
-                </Button>
-                <br />
+        // return (
+        //     <div>
+        //         Name: {userDetails.name}
+        //         <br />
+        //         Roll Number: {userDetails.rollNum}
+        //         <br />
+        //         Class: {sclassName.sclassName}
+        //         <br />
+        //         School: {studentSchool.schoolName}
+        //         {
+        //             subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
+        //                 <CustomPieChart data={chartData} />
+        //             )
+        //         }
+        //         <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
+        //             Delete
+        //         </Button>
+
+return (
+ <Paper
+    elevation={4}
+    sx={{
+      padding: 3,
+      maxWidth: 500,
+      margin: '20px auto',
+      backgroundColor: '#f5f5f5',
+      borderRadius: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}
+  >
+    <Typography
+      variant="h4"
+      align="center"
+      color="#d4af37"
+      gutterBottom
+      sx={{ fontFamily: "'Cinzel Decorative', cursive", fontWeight: 900 }}
+    >
+      Student Details
+    </Typography>
+
+    <Box sx={{ mt: 2, width: '100%' }}>
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Name:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {userDetails.name}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Roll Number:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {userDetails.rollNum}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Class:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {sclassName.sclassName}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        School:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {studentSchool.schoolName}
+      </Typography>
+
+      {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
+        <Box sx={{ mt: 2 }}>
+          <CustomPieChart data={chartData} />
+        </Box>
+      )}
+    </Box>
+
+    {/* Delete button at bottom center */}
+    <Button
+      variant="contained"
+      color="error"
+      startIcon={<DeleteIcon />} 
+      sx={{
+        mt: 3,
+        width: '50%',         // make button larger
+        fontSize: '1rem',     // larger text
+        alignSelf: 'center',  // center horizontally inside Paper
+      }}
+      onClick={deleteHandler}
+    >
+      Delete
+    </Button>
+  </Paper>
+);
+
                 {/* <Button variant="contained" sx={styles.styledButton} className="show-tab" onClick={() => { setShowTab(!showTab) }}>
                     {
                         showTab
@@ -392,8 +655,8 @@ const ViewStudent = () => {
                         </form>
                     </div>
                 </Collapse> */}
-            </div>
-        )
+        //     </div>
+        // )
     }
 
     return (
@@ -401,7 +664,19 @@ const ViewStudent = () => {
             {loading
                 ?
                 <>
-                    <div>Loading...</div>
+                     <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+      >
+        Loading...
+      </Box>
                 </>
                 :
                 <>
@@ -447,9 +722,9 @@ const styles = {
     },
     styledButton: {
         margin: "20px",
-        backgroundColor: "#02250b",
+        backgroundColor: "#4caf50",
         "&:hover": {
-            backgroundColor: "#106312",
+            backgroundColor: "#43a047",
         }
     }
 }

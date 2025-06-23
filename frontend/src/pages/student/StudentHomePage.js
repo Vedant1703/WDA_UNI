@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, Paper, Typography } from '@mui/material'
+import { Box, Container, Grid, Paper, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateOverallAttendancePercentage } from '../../components/attendanceCalculator';
 import CustomPieChart from '../../components/CustomPieChart';
@@ -48,7 +48,7 @@ const StudentHomePage = () => {
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
                             <img src={Subject} alt="Subjects" />
-                            <Title>
+                             <Title  style={{ fontSize: '1.2rem', fontFamily:'Cinzel Decorative', fontWeight: 'bold' }}>
                                 Total Subjects
                             </Title>
                             <Data start={0} end={numberOfSubjects} duration={2.5} />
@@ -57,17 +57,20 @@ const StudentHomePage = () => {
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
                             <img src={Assignment} alt="Assignments" />
-                            <Title>
+                              <Title  style={{ fontSize: '1.2rem', fontFamily:'Cinzel Decorative', fontWeight: 'bold' }}>
                                 Total Assignments
                             </Title>
                             <Data start={0} end={15} duration={4} />
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={4} lg={3}>
+                            < Paper sx={{ width: '100%', overflow: 'hidden' }}>
                         <ChartContainer>
                             {
                                 response ?
+                                    <Box>
                                     <Typography variant="h6">No Attendance Found</Typography>
+                                    </Box>
                                     :
                                     <>
                                         {loading
@@ -82,14 +85,15 @@ const StudentHomePage = () => {
                                                             <CustomPieChart data={chartData} />
                                                         </>
                                                     )
-                                                        :
-                                                        <Typography variant="h6">No Attendance Found</Typography>
+                                                    :
+                                                    <Typography variant="h6">No Attendance Found</Typography>
                                                 }
                                             </>
                                         }
                                     </>
                             }
                         </ChartContainer>
+                            </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>

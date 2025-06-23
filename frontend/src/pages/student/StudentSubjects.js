@@ -10,6 +10,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
+import {  Box,  Divider } from '@mui/material';
 
 const StudentSubjects = () => {
 
@@ -34,7 +35,7 @@ const StudentSubjects = () => {
     }, [userDetails])
 
     useEffect(() => {
-        if (subjectMarks === []) {
+        if (subjectMarks == []) {
             dispatch(getSubjectList(currentUser.sclassName._id, "ClassSubjects"));
         }
     }, [subjectMarks, dispatch, currentUser.sclassName._id]);
@@ -46,6 +47,7 @@ const StudentSubjects = () => {
     const renderTableSection = () => {
         return (
             <>
+              < Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Subject Marks
                 </Typography>
@@ -70,6 +72,7 @@ const StudentSubjects = () => {
                         })}
                     </TableBody>
                 </Table>
+                </Paper>
             </>
         );
     };
@@ -79,33 +82,95 @@ const StudentSubjects = () => {
     };
 
     const renderClassDetailsSection = () => {
-        return (
-            <Container>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Class Details
-                </Typography>
-                <Typography variant="h5" gutterBottom>
-                    You are currently in Class {sclassDetails && sclassDetails.sclassName}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    And these are the subjects:
-                </Typography>
-                {subjectsList &&
-                    subjectsList.map((subject, index) => (
-                        <div key={index}>
-                            <Typography variant="subtitle1">
-                                {subject.subName} ({subject.subCode})
-                            </Typography>
-                        </div>
-                    ))}
-            </Container>
-        );
+        
+return (
+  <Container maxWidth="sm">
+    <Paper
+      elevation={6}
+      sx={{
+        padding: 4,
+        //backgroundColor: '#f0e6d2', // subtle royal background
+        borderRadius: 3,
+        boxShadow: '0 8px 20px rgba(0,0,0,0.2)'
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{
+          fontFamily: "'Cinzel Decorative', cursive",
+          fontWeight: 900,
+          color: '#d4af37'
+        }}
+      >
+        Class Details
+      </Typography>
+
+      <Divider sx={{ backgroundColor: '#d4af37', my: 2 }} />
+
+      <Typography
+        variant="h5"
+        gutterBottom
+        //sx={{ fontFamily: "'Cinzel Decorative', cursive", color: '#5c4033' }}
+      >
+        You are currently in Class: 
+      </Typography>
+      <Typography
+        variant="h6"
+        gutterBottom
+        //sx={{ fontFamily: "'Cinzel Decorative', cursive", color: '#5c4033' }}
+      >
+         {sclassDetails && sclassDetails.sclassName}
+      </Typography>
+
+      <Typography
+        variant="h5"
+        gutterBottom
+
+      >
+        And these are the subjects:
+      </Typography>
+
+      <Box sx={{ mt: 2 }}>
+        {subjectsList &&
+          subjectsList.map((subject, index) => (
+            <Typography
+              key={index}
+              variant="subtitle1"
+              sx={{
+                fontFamily: "'Cinzel Decorative', cursive",
+                color: '#4e342e',
+                mb: 1
+              }}
+            >
+              • {subject.subName} ({subject.subCode})
+            </Typography>
+          ))}
+      </Box>
+    </Paper>
+  </Container>
+);
+
     };
 
     return (
         <>
             {loading ? (
-                <div>Loading...</div>
+                  <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+      >
+        Loading...
+      </Box>
+
             ) : (
                 <div>
                     {subjectMarks && Array.isArray(subjectMarks) && subjectMarks.length > 0

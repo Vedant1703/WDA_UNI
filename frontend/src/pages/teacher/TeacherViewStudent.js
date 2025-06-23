@@ -8,6 +8,7 @@ import { calculateOverallAttendancePercentage, calculateSubjectAttendancePercent
 import CustomPieChart from '../../components/CustomPieChart'
 import { PurpleButton } from '../../components/buttonStyles';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
+import { Paper,  Divider } from '@mui/material';
 
 const TeacherViewStudent = () => {
 
@@ -64,20 +65,92 @@ const TeacherViewStudent = () => {
             {loading
                 ?
                 <>
-                    <div>Loading...</div>
+                          <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+      >
+        Loading...
+      </Box>
+
                 </>
                 :
                 <div>
-                    Name: {userDetails.name}
-                    <br />
-                    Roll Number: {userDetails.rollNum}
-                    <br />
-                    Class: {sclassName.sclassName}
-                    <br />
-                    School: {studentSchool.schoolName}
-                    <br /><br />
+                
+  <Paper
+    elevation={6}
+    sx={{
+      padding: 4,
+      maxWidth: 420,
+      margin: '30px auto',
+      backgroundColor: '#f0e6d2',
+      borderRadius: 3,
+      boxShadow: '0 8px 20px rgba(0,0,0,0.2)'
+    }}
+  >
+    <Typography
+      variant="h4"
+      align="center"
+      color="#d4af37"
+      gutterBottom
+      sx={{
+        fontFamily: "'Cinzel Decorative', cursive",
+        fontWeight: 900
+      }}
+    >
+      Student Details
+    </Typography>
 
-                    <h3>Attendance:</h3>
+    <Divider sx={{ backgroundColor: '#d4af37', marginY: 2 }} />
+
+    <Box sx={{ fontFamily: "'Cinzel Decorative', cursive", color: '#5c4033' }}>
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        Name:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {userDetails.name}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        Roll Number:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {userDetails.rollNum}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        Class:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {sclassName.sclassName}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        School:
+      </Typography>
+      <Typography variant="body1">
+        {studentSchool.schoolName}
+      </Typography>
+    </Box>
+  </Paper>
+);
+                    <br /><br />
+  < Paper sx={{ width: '100%', overflow: 'hidden' }}>
+  
+                      <Typography variant="h4" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900,
+                        marginTop:10,  // or 700 if 900 feels too bold
+                 
+                 }}  gutterBottom>
+                Attendance:
+            </Typography>
                     {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0
                         &&
                         <>
@@ -156,20 +229,31 @@ const TeacherViewStudent = () => {
 
                             <CustomPieChart data={chartData} />
                         </>
+
                     }
-                    <br /><br />
+               
                     <Button
                         variant="contained"
+                        sx={styles.styledButton} 
                         onClick={() =>
                             navigate(
                                 `/Teacher/class/student/attendance/${studentID}/${teachSubjectID}`
                             )
                         }
-                    >
+                        >
                         Add Attendance
                     </Button>
-                    <br /><br /><br />
-                    <h3>Subject Marks:</h3>
+                        </Paper>
+                    <br /><br />
+                      < Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                         <Typography variant="h4" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900,
+                        marginTop:10,  // or 700 if 900 feels too bold
+                 
+                 }}  gutterBottom>
+                Subject Marks:
+            </Typography>
 
                     {subjectMarks && Array.isArray(subjectMarks) && subjectMarks.length > 0 &&
                         <>
@@ -199,14 +283,17 @@ const TeacherViewStudent = () => {
                             })}
                         </>
                     }
-                    <PurpleButton variant="contained"
+                    <br />
+                    <PurpleButton variant="contained" sx={{ margin: "20px"}}
                         onClick={() =>
                             navigate(
                                 `/Teacher/class/student/marks/${studentID}/${teachSubjectID}`
                             )}>
                         Add Marks
                     </PurpleButton>
-                    <br /><br /><br />
+                   
+                                </Paper>
+                    <br /><br />
                 </div>
             }
         </>
@@ -214,3 +301,21 @@ const TeacherViewStudent = () => {
 }
 
 export default TeacherViewStudent
+
+
+const styles = {
+    attendanceButton: {
+        marginLeft: "20px",
+        backgroundColor: "#270843",
+        "&:hover": {
+            backgroundColor: "#3f1068",
+        }
+    },
+    styledButton: {
+        margin: "20px",
+        backgroundColor: "#4caf50",
+        "&:hover": {
+            backgroundColor: "#43a047",
+        }
+    }
+}

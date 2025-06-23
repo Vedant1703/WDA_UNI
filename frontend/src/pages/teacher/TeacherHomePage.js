@@ -34,7 +34,7 @@ const TeacherHomePage = () => {
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
                             <img src={Students} alt="Students" />
-                            <Title>
+                            <Title  style={{ fontSize: '1.2rem', fontFamily:'Cinzel Decorative', fontWeight: 'bold' }}>
                                 Class Students
                             </Title>
                             <Data start={0} end={numberOfStudents} duration={2.5} />
@@ -43,7 +43,7 @@ const TeacherHomePage = () => {
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
                             <img src={Lessons} alt="Lessons" />
-                            <Title>
+                            <Title  style={{ fontSize: '1.2rem', fontFamily:'Cinzel Decorative', fontWeight: 'bold' }}>
                                 Total Lessons
                             </Title>
                             <Data start={0} end={numberOfSessions} duration={5} />
@@ -52,7 +52,7 @@ const TeacherHomePage = () => {
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
                             <img src={Tests} alt="Tests" />
-                            <Title>
+                           <Title  style={{ fontSize: '1.2rem', fontFamily:'Cinzel Decorative', fontWeight: 'bold' }}>
                                 Tests Taken
                             </Title>
                             <Data start={0} end={24} duration={4} />
