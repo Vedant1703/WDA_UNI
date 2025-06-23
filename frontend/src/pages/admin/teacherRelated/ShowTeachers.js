@@ -31,7 +31,20 @@ const ShowTeachers = () => {
     const [message, setMessage] = useState("");
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (    <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+        >   
+        Loading...
+      </Box>
+      )
     } else if (response) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>

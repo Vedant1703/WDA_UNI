@@ -8,11 +8,12 @@ import { updateStudentFields } from '../../../redux/studentRelated/studentHandle
 import Popup from '../../../components/Popup';
 import { BlueButton } from '../../../components/buttonStyles';
 import {
-    Box, InputLabel,
+    Paper, Box, InputLabel,
     MenuItem, Select,
     Typography, Stack,
     TextField, CircularProgress, FormControl
 } from '@mui/material';
+import { CenterFocusStrong } from '@mui/icons-material';
 
 const StudentExamMarks = ({ situation }) => {
     const dispatch = useDispatch();
@@ -86,94 +87,131 @@ const StudentExamMarks = ({ situation }) => {
 
     return (
         <>
-            {loading
-                ?
+           {loading ? (
+                 <Box
+                   sx={{
+                     display: 'flex',
+                     justifyContent: 'center',
+                     alignItems: 'center',
+                     height: '80vh',
+                     color: '#d4af37',
+                     fontSize: '24px',
+                     fontWeight: 700
+                   }}
+                 >
+                   Loading...
+                 </Box>
+               )
+                :(
                 <>
-                    <div>Loading...</div>
-                </>
-                :
-                <>
-                    <Box
-                        sx={{
-                            flex: '1 1 auto',
-                            alignItems: 'center',
-                            display: 'flex',
-                            justifyContent: 'center'
-                        }}
+ 
+     <Paper
+             elevation={4}
+             sx={{
+               backgroundColor: '#f5f5f5',
+               padding: 4,
+               maxWidth: 600,
+               margin: '40px auto',
+               borderRadius: 3
+             }}
+           >
+      <Stack spacing={2}>
+        <Typography
+                      variant="h4"
+                      align="center"
+                      gutterBottom
+                      sx={{
+                        fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900,
+                        color: '#d4af37'
+                      }}
                     >
-                        <Box
-                            sx={{
-                                maxWidth: 550,
-                                px: 3,
-                                py: '100px',
-                                width: '100%'
-                            }}
-                        >
-                            <Stack spacing={1} sx={{ mb: 3 }}>
-                                <Typography variant="h4">
-                                    Student Name: {userDetails.name}
+                      Provide Marks
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                                  Student Name:
                                 </Typography>
-                                {currentUser.teachSubject &&
-                                    <Typography variant="h4">
-                                        Subject Name: {currentUser.teachSubject?.subName}
-                                    </Typography>
-                                }
-                            </Stack>
-                            <form onSubmit={submitHandler}>
-                                <Stack spacing={3}>
-                                    {
-                                        situation === "Student" &&
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">
-                                                Select Subject
-                                            </InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={subjectName}
-                                                label="Choose an option"
-                                                onChange={changeHandler} required
-                                            >
-                                                {subjectsList ?
-                                                    subjectsList.map((subject, index) => (
-                                                        <MenuItem key={index} value={subject.subName}>
-                                                            {subject.subName}
-                                                        </MenuItem>
-                                                    ))
-                                                    :
-                                                    <MenuItem value="Select Subject">
-                                                        Add Subjects For Marks
-                                                    </MenuItem>
-                                                }
-                                            </Select>
-                                        </FormControl>
-                                    }
-                                    <FormControl>
-                                        <TextField type="number" label='Enter marks'
-                                            value={marksObtained} required
-                                            onChange={(e) => setMarksObtained(e.target.value)}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Stack>
-                                <BlueButton
-                                    fullWidth
-                                    size="large"
-                                    sx={{ mt: 3 }}
-                                    variant="contained"
-                                    type="submit"
-                                    disabled={loader}
-                                >
-                                    {loader ? <CircularProgress size={24} color="inherit" /> : "Submit"}
-                                </BlueButton>
-                            </form>
-                        </Box>
-                    </Box>
-                    <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-                </>
-            }
+       
+         <Typography variant="body1" gutterBottom>
+                      {userDetails.name}
+                    </Typography>
+           {currentUser.teachSubject && (
+                     <>
+                       <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                         Subject Name:
+                       </Typography>
+                       <Typography variant="body1" gutterBottom>
+                         {currentUser.teachSubject?.subName}
+                       </Typography>
+                     </>
+                   )}
+
+       
+                   <form onSubmit={submitHandler}>
+                     <Stack spacing={3}>
+                       {situation === 'Student' && (
+                         <FormControl fullWidth>
+                           <InputLabel>Select Subject</InputLabel>
+                           <Select
+                             value={subjectName}
+                             label="Select Subject"
+                             onChange={changeHandler}
+                             required
+                           >
+                             {subjectsList?.length > 0 ? (
+                               subjectsList.map((subject, index) => (
+                                 <MenuItem key={index} value={subject.subName}>
+                                   {subject.subName}
+                                 </MenuItem>
+                               ))
+                             ) : (
+                               <MenuItem value="Select Subject">
+                                 Add Subjects For Marks
+                               </MenuItem>
+                             )}
+                           </Select>
+                         </FormControl>
+                       )}
+
+            <TextField
+              type="number"
+              label="Enter Marks"
+              value={marksObtained}
+              required
+              onChange={(e) => setMarksObtained(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+              fullWidth
+            />
+
+            <BlueButton
+              fullWidth
+              size="large"
+              sx={{
+                borderRadius: 2,
+                py: 1.5,
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                mt: 2
+              }}
+              variant="contained"
+              type="submit"
+              disabled={loader}
+            >
+              {loader ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Submit Marks"
+              )}
+            </BlueButton>
+          </Stack>
+        </form>
+      </Stack>
+    </Paper>
+ 
+
+  <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
+</>
+           ) }
         </>
     )
 }

@@ -146,12 +146,28 @@ const TeacherClassDetails = () => {
     return (
         <>
             {loading ? (
-                <div>Loading...</div>
+                   <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+      >
+        Loading...
+      </Box>
             ) : (
                 <>
-                    <Typography variant="h4" align="center" gutterBottom>
-                        Class Details
-                    </Typography>
+             
+                      <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
+                Class Details
+            </Typography>
                     {getresponse ? (
                         <>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
@@ -160,10 +176,12 @@ const TeacherClassDetails = () => {
                         </>
                     ) : (
                         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                            <Typography variant="h5" gutterBottom>
-                                Students List:
-                            </Typography>
-
+                              <Typography variant="h5" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900, marginLeft:10 // or 700 if 900 feels too bold
+                 }}  gutterBottom>
+               Student List
+            </Typography>
                             {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
                                 <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
                             }

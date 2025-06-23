@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getClassStudents, getSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import {  Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import { BlueButton, GreenButton, PurpleButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 import TabContext from '@mui/lab/TabContext';
@@ -13,6 +13,7 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+
 
 const ViewSubject = () => {
   const navigate = useNavigate()
@@ -109,6 +110,7 @@ const ViewSubject = () => {
           </>
         ) : (
           <>
+          <Paper sx={{ padding: 2, marginBottom: 2, backgroundColor: '#f5f5f5', borderRadius: 2 }} elevation={3}>
             <Typography variant="h5" gutterBottom>
               Students List:
             </Typography>
@@ -118,7 +120,7 @@ const ViewSubject = () => {
             }
             {selectedSection === 'marks' &&
               <TableTemplate buttonHaver={StudentsMarksButtonHaver} columns={studentColumns} rows={studentRows} />
-            }
+            }</Paper>
 
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
               <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
@@ -144,44 +146,138 @@ const ViewSubject = () => {
   const SubjectDetailsSection = () => {
     const numberOfStudents = sclassStudents.length;
 
-    return (
-      <>
-        <Typography variant="h4" align="center" gutterBottom>
-          Subject Details
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Name : {subjectDetails && subjectDetails.subName}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Code : {subjectDetails && subjectDetails.subCode}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Sessions : {subjectDetails && subjectDetails.sessions}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Number of Students: {numberOfStudents}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Class Name : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
-        </Typography>
-        {subjectDetails && subjectDetails.teacher ?
-          <Typography variant="h6" gutterBottom>
-            Teacher Name : {subjectDetails.teacher.name}
+    // return (
+    //   <>
+    //     <Typography variant="h4" align="center" gutterBottom>
+    //       Subject Details
+    //     </Typography>
+    //     <Typography variant="h6" gutterBottom>
+    //       Subject Name : {subjectDetails && subjectDetails.subName}
+    //     </Typography>
+    //     <Typography variant="h6" gutterBottom>
+    //       Subject Code : {subjectDetails && subjectDetails.subCode}
+    //     </Typography>
+    //     <Typography variant="h6" gutterBottom>
+    //       Subject Sessions : {subjectDetails && subjectDetails.sessions}
+    //     </Typography>
+    //     <Typography variant="h6" gutterBottom>
+    //       Number of Students: {numberOfStudents}
+    //     </Typography>
+    //     <Typography variant="h6" gutterBottom>
+    //       Class Name : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
+    //     </Typography>
+    //     {subjectDetails && subjectDetails.teacher ?
+    //       <Typography variant="h6" gutterBottom>
+    //         Teacher Name : {subjectDetails.teacher.name}
+    //       </Typography>
+    //       :
+    //       <GreenButton variant="contained"
+    //         onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}>
+    //         Add Subject Teacher
+    //       </GreenButton>
+    //     }
+    //   </>
+    // );
+
+
+return (
+  <Paper
+    elevation={4}
+    sx={{
+      padding: 3,
+      maxWidth: 500,
+      margin: '20px auto',
+      backgroundColor: '#f5f5f5',
+      borderRadius: 2
+    }}
+  >
+    <Typography
+      variant="h4"
+      align="center"
+      color="#d4af37"
+      gutterBottom
+      sx={{ fontFamily: "'Cinzel Decorative', cursive", fontWeight: 900 }}
+    >
+      Subject Details
+    </Typography>
+
+    <Box sx={{ mt: 2 }}>
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Subject Name:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {subjectDetails?.subName}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Subject Code:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {subjectDetails?.subCode}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Subject Sessions:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {subjectDetails?.sessions}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Number of Students:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {numberOfStudents}
+      </Typography>
+
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Class Name:
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {subjectDetails?.sclassName?.sclassName}
+      </Typography>
+
+      {subjectDetails?.teacher ? (
+        <>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Teacher Name:
           </Typography>
-          :
-          <GreenButton variant="contained"
-            onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}>
-            Add Subject Teacher
-          </GreenButton>
-        }
-      </>
-    );
+          <Typography variant="body1">
+            {subjectDetails.teacher.name}
+          </Typography>
+        </>
+      ) : (
+        <GreenButton
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3 }}
+          onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}
+        >
+          Add Subject Teacher
+        </GreenButton>
+      )}
+    </Box>
+  </Paper>
+);
+
   }
 
   return (
     <>
       {subloading ?
-        < div > Loading...</div >
+              <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          color: '#d4af37',
+          fontSize: '24px',
+          fontWeight: 700
+        }}
+      >
+        Loading...
+      </Box>
         :
         <>
           <Box sx={{ width: '100%', typography: 'body1', }} >

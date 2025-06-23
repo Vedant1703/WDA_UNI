@@ -13,7 +13,7 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
 
-const ViewStdAttendance = () => {
+const ViewStdAttendance = ({ sidebarOpen }) => {
     const dispatch = useDispatch();
 
     const [openStates, setOpenStates] = useState({});
@@ -64,9 +64,13 @@ const ViewStdAttendance = () => {
     const renderTableSection = () => {
         return (
             <>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Attendance
-                </Typography>
+            < Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                  <Typography variant="h3" align="center" color= "#d4af37"   
+                style={{ fontFamily: "'Cinzel Decorative', cursive",
+                        fontWeight: 900  // or 700 if 900 feels too bold
+                 }}  gutterBottom>
+                Attendance
+            </Typography>
                 <Table>
                     <TableHead>
                         <StyledTableRow>
@@ -135,6 +139,7 @@ const ViewStdAttendance = () => {
                 <div>
                     Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
                 </div>
+                </Paper>
             </>
         )
     }
@@ -142,7 +147,7 @@ const ViewStdAttendance = () => {
     const renderChartSection = () => {
         return (
             <>
-                <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" />
+                <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" sidebarOpen={sidebarOpen} />
             </>
         )
     };
@@ -176,11 +181,27 @@ const ViewStdAttendance = () => {
                             </Paper>
                         </>
                         :
-                        <>
-                            <Typography variant="h6" gutterBottom component="div">
-                                Currently You Have No Attendance Details
-                            </Typography>
-                        </>
+                      <>
+  <Typography
+    variant="h6"
+    gutterBottom
+    align="center"
+    sx={{
+      fontFamily: "'Cinzel Decorative', cursive",
+      fontWeight: 700,
+      color: '#d4af37',  // gold color
+      backgroundColor: '#f0e6d2',  // soft royal background
+      padding: 2,
+      borderRadius: 2,
+      boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
+      maxWidth: 400,
+      margin: '20px auto'
+    }}
+  >
+    Currently You Have No Attendance Details
+  </Typography>
+</>
+
                     }
                 </div>
             }
