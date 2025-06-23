@@ -14,8 +14,10 @@ dotenv.config();
 // app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
 app.use(express.json({ limit: '10mb' }))
-app.use(cors())
-
+app.use(cors({
+  origin: 'https://wda-uni-yd54.vercel.app',  // your Vercel frontend URL
+  credentials: true // only if you're using cookies, sessions, or auth
+}));
 mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
